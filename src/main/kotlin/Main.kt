@@ -1,11 +1,17 @@
 const val HERO_NAME: String = "Madrigal"
-var playerLevel: Int = 5
+var playerLevel: Int = 0
 
 fun main() {
     println("Hero was born")
-
     println("Hero's name: $HERO_NAME")
-    println("Level: $playerLevel")
+    println("What level is $HERO_NAME:  ")
+    val playerLevelInput = readLine()!!
+    playerLevel = if (playerLevelInput.matches("""\d+""".toRegex())) {
+        playerLevelInput.toInt()
+    } else {
+        1
+    }
+    println("$HERO_NAME's level is $playerLevel.")
 
     readBountyBoard()
     println("Time passes... $HERO_NAME returns from his jorney...")
@@ -16,8 +22,12 @@ fun main() {
 }
 
 private fun readBountyBoard() {
-    println("$HERO_NAME approaches the bounty board. New task: ")
-    println(obtainQuest(playerLevel))
+    println(
+        """
+        |$HERO_NAME approaches the bounty board. New task:
+        |   "${obtainQuest(playerLevel).replace("[Nn]ogartse".toRegex(), "xxxxxx")}"
+        """.trimMargin()
+    )
 }
 
 private fun obtainQuest(
